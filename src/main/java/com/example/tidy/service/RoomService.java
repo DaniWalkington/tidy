@@ -2,6 +2,7 @@ package com.example.tidy.service;
 
 import com.example.tidy.entity.Room;
 import com.example.tidy.repository.RoomRepository;
+import com.example.tidy.dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,10 @@ public class RoomService {
         return roomRepository.findAll();
     }
 
-    public Optional<Room> getRoomById(Integer id) {
-        return roomRepository.findById(id);
+    public RoomDTO getRoomById(Integer id) {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Room not found"));
+        return new RoomDTO(room);
     }
 
     public Room createRoom(Room room) {
