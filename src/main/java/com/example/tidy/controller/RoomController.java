@@ -6,7 +6,10 @@ import com.example.tidy.dto.RoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
-
+import jakarta.validation.Valid;
+//import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,8 +33,9 @@ public class RoomController {
     }
 
     @PostMapping
-    public Room createRoom(@RequestBody Room room) {
-        return roomService.createRoom(room);
+    public ResponseEntity<RoomDTO> createRoom(@Valid @RequestBody RoomDTO roomDTO) {
+        RoomDTO createdRoom = roomService.createRoom(roomDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRoom);
     }
 
     @DeleteMapping("/{id}")
