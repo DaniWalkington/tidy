@@ -1,6 +1,5 @@
 package com.example.tidy.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,7 +17,6 @@ public class Room {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "building_id", nullable = false)
     private Building building;
